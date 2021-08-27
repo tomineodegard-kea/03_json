@@ -11,7 +11,7 @@
       }
 
       img {
-        max-width: 100px;
+        max-width: 150px;
       }
     </style>
   </head>
@@ -23,13 +23,12 @@
       <article>
         <img src="" alt="" class="picture" />
         <h2 class="name"></h2>
-        <p class="title"></p>
-        <p class="birthday"></p>
+        <p class="email"></p>
+        <p class="birth"></p>
       </article>
     </template>
 
     <script>
-      console.log("hello");
       const container = document.querySelector("section");
       const template = document.querySelector("template");
 
@@ -51,10 +50,10 @@
         json.forEach((person) => {
           const clone = template.cloneNode(true).content;
           clone.querySelector("img").src = "faces/" + person.billede;
-          clone.querySelector("h2").textContent = person.fornavn;
-          clone.querySelector(".title").textContent = "Title: " + person.title;
-          clone.querySelector(".birthday").textContent =
-            "Birthday: " + person.birthday;
+          clone.querySelector("h2").textContent =
+            person.fornavn + " " + person.efternavn;
+          clone.querySelector(".email").textContent = person.email;
+          clone.querySelector(".birth").textContent = person.birth;
           container.appendChild(clone);
         });
       }
