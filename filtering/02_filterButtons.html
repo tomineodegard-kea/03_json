@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>01 filter persongalleri</title>
+    <title>02_filterButtons</title>
     <style>
       body {
         font-family: sans-serif;
@@ -24,6 +24,9 @@
         padding: 1em;
         border: 1px solid;
         border-radius: 1em;
+      }
+
+      .chosen {
       }
     </style>
   </head>
@@ -56,7 +59,17 @@
 
       // første funktion der kaldes efter DOM er loaded
       function start() {
+        const filterButtons = document.querySelectorAll("nav button");
+        filterButtons.forEach((btn) =>
+          btn.addEventListener("click", filterPersons)
+        );
         loadJSON();
+      }
+
+      function filterPersons() {
+        filter = this.dataset.troende;
+
+        visPersoner;
       }
 
       async function loadJSON() {
@@ -75,15 +88,17 @@
       function visPersoner() {
         const destination = document.querySelector("#liste"); // container til articles med en person
         const template = document.querySelector("template").content; // select indhold af html template (article)
+        destination.textContent = "";
 
         personer.forEach((person) => {
           // loop igennem json (personer)
-          if (filter == person.troende) {
+          if (filter == person.template || person."alle") {
             const clone = template.cloneNode(true);
             clone.querySelector(".navn").textContent =
               person.fornavn + " " + person.efternavn;
             clone.querySelector(".profil-billede").src =
               medieurl + person.billede;
+
             destination.appendChild(clone);
           }
         });
