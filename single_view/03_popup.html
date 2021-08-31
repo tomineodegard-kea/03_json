@@ -32,17 +32,19 @@
 
       #popup article {
         background-color: white;
-        width: 40%;
-        height: 60%;
+        width: 80vw;
+        height: 85vh;
         display: block;
         margin: auto;
         text-align: center;
+        border-radius: 3em;
       }
 
       #popup img {
-        max-width: 100%;
+        max-width: 55vw;
         display: block;
         margin: auto;
+        padding-top: 2em;
       }
 
       button {
@@ -56,6 +58,15 @@
         font-size: 16px;
       }
 
+      #closeBtn {
+        position: relative;
+        cursor: pointer;
+        color: #81a684;
+        font-size: 2em;
+        top: 10vh;
+        left: 15vw;
+      }
+
       img {
         width: 100%;
       }
@@ -63,6 +74,7 @@
       article:hover {
         background-color: #81a684;
         border: none;
+        cursor: pointer;
       }
 
       #liste {
@@ -103,7 +115,7 @@
     </template>
 
     <section id="popup">
-      <button class="closeBtn">X</button>
+      <div id="closeBtn">&#x2715</div>
       <article>
         <img src="" alt="" class="profil-billede" />
         <h2 class="navn"></h2>
@@ -175,10 +187,10 @@
       }
 
       document
-        .querySelector("#popup button")
-        .addEventListener("click", closePopup);
+        .querySelector("#closeBtn")
+        .addEventListener("click", hidePopup);
 
-      function closePopup() {
+      function hidePopup() {
         document.querySelector("#popup").style.display = "none";
       }
 
