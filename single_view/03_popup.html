@@ -24,15 +24,25 @@
         display: none;
         width: 100vw;
         height: 100vh;
-        background-color: #1d1d20ab;
+        background-color: #1d1d20d2;
         position: fixed;
         top: 0;
-        padding: 2em;
+        left: 0;
       }
 
       #popup article {
         background-color: white;
-        width: 85%;
+        width: 40%;
+        height: 60%;
+        display: block;
+        margin: auto;
+        text-align: center;
+      }
+
+      #popup img {
+        max-width: 100%;
+        display: block;
+        margin: auto;
       }
 
       button {
@@ -93,7 +103,7 @@
     </template>
 
     <section id="popup">
-      <button>X</button>
+      <button class="closeBtn">X</button>
       <article>
         <img src="" alt="" class="profil-billede" />
         <h2 class="navn"></h2>
@@ -177,7 +187,8 @@
         popup.style.display = "block";
         popup.querySelector(".navn").textContent =
           details.fornavn + " " + details.efternavn;
-        popup.querySelector(".email").textContent = "Email" + details.email;
+        popup.querySelector(".email").innerHTML =
+          "<b>Email</b>: " + details.email;
         popup.querySelector("img").src = "../faces/" + details.billede;
         console.log(details);
       }
