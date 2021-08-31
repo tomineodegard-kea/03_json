@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html lang="">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"
+      rel="stylesheet"
+    />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>03_filterButtonsWorks</title>
+    <title>01_call</title>
+
     <style>
       body {
-        font-family: sans-serif;
+        font-family: "Roboto Condensed", sans-serif;
+      }
+      nav {
+        display: flex;
+        justify-content: center;
+      }
+
+      button {
+        background-color: #81a684; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
       }
 
       img {
@@ -26,24 +48,23 @@
         border-radius: 1em;
       }
 
-      /* button {
-        background-color: w;
-      } */
-
-      button:focus {
-        background-color: green;
+      .chosen {
+        background-color: #274029;
       }
     </style>
   </head>
-  <nav>
-    <button data-troende="alle">All</button>
-    <button data-troende="ja">Religious</button>
-    <button data-troende="nej">Non-religious</button>
-    <button data-troende="tvivler">In doubt</button>
-  </nav>
-  <body>
-    <section id="liste"></section>
 
+  <body>
+    <h1>Persongalleri</h1>
+    <nav>
+      <button data-troende="alle" class="chosen">All</button>
+      <button data-troende="ja">Religious</button>
+      <button data-troende="nej">Non-religious</button>
+      <button data-troende="tvivler">In doubt</button>
+    </nav>
+    <h2 id="religionId">Alle</h2>
+
+    <section id="liste"></section>
     <template>
       <article class="person">
         <h2 class="navn"></h2>
@@ -53,15 +74,16 @@
     </template>
 
     <script>
-      const header = document.querySelector("header h1");
+      let header = document.querySelector("#religionId");
       const medieurl = "https://persongalleri-5d3e.restdb.io/media/";
       const myHeaders = {
         "x-apikey": "600fe9211346a1524ff12e31",
       };
-      document.addEventListener("DOMContentLoaded", start);
+
       let personerJSON;
       let filter = "alle";
 
+      document.addEventListener("DOMContentLoaded", start);
       // første funktion der kaldes efter DOM er loaded
       function start() {
         const filterButtons = document.querySelectorAll("nav button");
@@ -73,7 +95,10 @@
 
       function filterPersons() {
         filter = this.dataset.troende;
+        document.querySelector(".chosen").classList.remove("chosen");
+        this.classList.add("chosen");
         visPersoner();
+        header.textContent = this.textContent;
       }
 
       async function loadJSON() {
@@ -89,9 +114,9 @@
 
       //funktion der viser personer i liste view
       function visPersoner() {
-        const destination = document.querySelector("#liste"); // container til articles med en person
+        const main = document.querySelector("#liste"); // container til articles med en person
         const template = document.querySelector("template").content; // select indhold af html template (article)
-        destination.textContent = "";
+        main.textContent = "";
 
         personerJSON.forEach((person) => {
           // loop igennem json (personer)
@@ -103,7 +128,7 @@
             clone.querySelector(".profil-billede").src =
               "faces/" + person.billede;
 
-            destination.appendChild(clone);
+            main.appendChild(clone);
           }
         });
       }
